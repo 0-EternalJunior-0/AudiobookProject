@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Details - {{ book.title }}</title>
+
+    <!-- SEO Metadata -->
+    <meta name="description" content="Listen to {{ book.title }} by {{ book.author_name }}. Explore track details, your progress, and more.">
+    <meta property="og:title" content="Book Details - {{ book.title }}">
+    <meta property="og:description" content="Listen to {{ book.title }} by {{ book.author_name }}. Explore track details, your progress, and more.">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="{{ book.image_url }}">
+
+    <!-- Favicon -->
+    <link rel="icon" href="../static/images/favicon.ico" type="image/x-icon">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../static/css/book-details.css">
+</head>
+<body>
+<div class="container">
+    <header>
+        <h1>{{ book.title }}</h1>
+        <p>by <a href="{{ book.author_url }}">{{ book.author_name }}</a></p>
+    </header>
+
+    <section class="book-info">
+        <div class="cover-image">
+            <img src="{{ book.image_url }}" alt="Book Cover for {{ book.title }}">
+        </div>
+        <div class="details">
+            <p><strong>Description:</strong> {{ book.description }}</p>
+            <p><strong>Pages:</strong> {{ book.pages }}</p>
+            <p><strong>Chapters:</strong> {{ book.chapters_num }}</p>
+            <p><strong>Followers:</strong> {{ book.followers }}</p>
+            <p><strong>Rating:</strong> {{ book.rating }}</p>
+            <p><strong>Views:</strong> {{ book.views }}</p>
+            <p><strong>Last Updated:</strong> {{ book.last_update }}</p>
+            <p><strong>Tags:</strong> {{ book.tags }}</p>
+        </div>
+    </section>
+
+    <section class="controls">
+        <div class="control-group">
+            <button class="control-btn rewind-btn" aria-label="Rewind 10 seconds">Rewind 10s</button>
+            <button class="control-btn play-btn" aria-label="Play audio">Play</button>
+            <button class="control-btn pause-btn" aria-label="Pause audio">Pause</button>
+            <button class="control-btn stop-btn" aria-label="Stop audio">Stop</button>
+            <button class="control-btn forward-btn" aria-label="Forward 10 seconds">Forward 10s</button>
+        </div>
+        <div class="control-group">
+            <button class="control-btn volume-btn" aria-label="Adjust volume">Volume</button>
+            <button class="control-btn speed-btn" aria-label="Adjust playback speed">Speed</button>
+        </div>
+    </section>
+
+    <section class="audio-player">
+        <h2>Audio Player</h2>
+        <audio id="audio-player" controls>
+            <source src="../static/audio/placeholder_track.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+    </section>
+
+    <section class="track-list">
+        <h2>Track List</h2>
+        <div class="track-list-container">
+            {% for chapter in book.chapters %}
+            <div class="track-item">
+                <div class="track-info">
+                    <p><strong>Chapter {{ loop.index }}:</strong> {{ chapter.title }}</p>
+                    <p><strong>url:</strong> {{ chapter.url }}</p>
+                </div>
+                <button class="track-btn" aria-label="Play Chapter {{ loop.index }}">Play</button>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</div>
+
+<!-- JavaScript -->
+<script src="../static/js/script.js"></script>
+</body>
+</html>
